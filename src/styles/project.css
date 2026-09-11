@@ -1,0 +1,147 @@
+.app-header {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 2px solid var(--border);
+  background: var(--panel-2);
+}
+.app-header-media {
+  flex: 0 0 48%;
+  max-width: 320px;
+}
+.media-btn-row {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.media-pause-btn {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  font-family: "Silkscreen", monospace;
+  font-size: 10px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 2px solid var(--border);
+  box-shadow: 3px 3px 0 var(--shadow);
+  padding: 7px 8px;
+  cursor: pointer;
+  transition:
+    transform 0.08s steps(2),
+    box-shadow 0.08s steps(2);
+}
+.media-pause-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.media-pause-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--shadow);
+}
+.app-header-info {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.eyebrow {
+  font-family: "Silkscreen", monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--pink-3);
+  margin-bottom: 6px;
+}
+.app-header-info h3 {
+  font-family: "Silkscreen", monospace;
+  font-size: 19px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.app-header-info h3 .title-main {
+  text-shadow:
+    2px 2px 0 var(--accent-3),
+    4px 4px 0 var(--pink-2);
+}
+.app-header-info .quote {
+  font-size: 11.5px;
+  font-style: italic;
+  color: var(--accent-3);
+  line-height: 1.6;
+  margin: 8px 0;
+}
+.app-header-info .desc {
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0 0 10px;
+}
+.app-links {
+  display: flex;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 10px;
+  flex-wrap: wrap;
+}
+.app-links a {
+  font-size: 11px;
+  text-decoration: none;
+  border: 2px solid var(--border);
+  background: var(--panel);
+  color: var(--ink);
+  padding: 5px 10px;
+}
+.app-links a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.app-links a.dim {
+  opacity: 0.45;
+  pointer-events: none;
+}
+.app-pane {
+  padding: 16px;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 6px;
+}
+.chip {
+  font-family: "Silkscreen", monospace;
+  font-size: 10px;
+  background: var(--panel-2);
+  border: 2px solid var(--accent);
+  border-radius: 0;
+  color: var(--accent-3);
+  padding: 4px 9px;
+  box-shadow:
+    2px 2px 0 var(--accent),
+    4px 4px 0 var(--shadow);
+}
+.gal {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 8px;
+}
+.gal-frame {
+  border: 2px solid var(--border);
+}
+.gal figure {
+  margin: 0;
+}
+.gal figcaption {
+  font-size: 10px;
+  color: var(--ink-dim);
+  margin-top: 3px;
+}
+@media (max-width: 820px) {
+  .app-header {
+    flex-direction: column;
+  }
+  .app-header-media {
+    flex: none;
+    max-width: none;
+  }
+}

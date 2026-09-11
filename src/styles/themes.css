@@ -1,0 +1,195 @@
+﻿/* ============================================================
+   THEMES â€” every colour flows from here.
+   Each theme defines the same 26 custom properties. No component
+   in this app should ever hard-code a colour; they all read from
+   these variables so switching data-theme on <body> reflows the
+   whole page instantly.
+   ============================================================ */
+
+:root,
+[data-theme="default"] {
+  --wall-1: #efe6fb;
+  --wall-2: #ddcbf3;
+  --wall-3: #c3a9e6;
+  --wall-4: #a98cd6;
+  --panel: #fdf8ff;
+  --panel-2: #f2e7fb;
+  --panel-3: #e6d8f6;
+  --white: #fffaff;
+  --ink: #3d2560;
+  --ink-soft: #6b4a95;
+  --ink-dim: #785aa1;
+  --accent: #b98fd9;
+  --accent-2: #8e5fc4;
+  --accent-3: #6d3fa8;
+  --pink: #f6c6dd;
+  --pink-2: #e895bd;
+  --pink-3: #c33f80;
+  --mint: #a8ddc6;
+  --mint-2: #377d62;
+  --error: #d33258;
+  --border: #6d4b9c;
+  --shadow: rgba(80, 50, 120, 0.3);
+  --cream: #fdf3d8;
+  --sel: #3f6fc4;
+  --sel-bg: rgba(122, 167, 232, 0.28);
+  --grid: rgba(255, 255, 255, 0.15);
+  --portrait-blue: #5b7fd6;
+  --portrait-purple: #a24fce;
+  --portrait-dark: #17101f;
+  --portrait-light: #ded0ec;
+  /* This same variable recolors both the phone (pixel-phone.svg, native
+     pink) and the skills-window art (skills-fill.svg, native brown) —
+     two completely different source palettes. A plain hue-rotate shifts
+     each by the same *angle* but from different starting hues, so they'd
+     never land on the same color. Routing both through grayscale(1)
+     sepia(1) first erases each image's original hue (sepia's output sits
+     at a fixed ~30deg regardless of input), so the hue-rotate/saturate/
+     brightness that follows lands both pieces of pixel art on the exact
+     same final color instead of two different ones. */
+  /* Tuned toward this theme's own --accent (#b98fd9, hue ~274°) and
+     --pink (#f6c6dd) swatches rather than an arbitrary purple. */
+  /* brightness kept modest (not the earlier 1.3) — sepia(1) tints pure
+     white toward a warm cream rather than leaving it neutral, which is
+     what lets hue-rotate carry that tint to lilac; too much brightness
+     blows that faint tint back out to flat white, undoing it. */
+  --phone-filter: grayscale(1) sepia(1) hue-rotate(244deg) saturate(1.6) brightness(1.05);
+}
+
+[data-theme="midnight"] {
+  --wall-1: #26304d;
+  --wall-2: #1b2338;
+  --wall-3: #141a2b;
+  --wall-4: #0c101c;
+  --panel: #1e2740;
+  --panel-2: #182034;
+  --panel-3: #121828;
+  --white: #232e4c;
+  --ink: #dfe6ff;
+  --ink-soft: #a8b6dd;
+  --ink-dim: #7c88ae;
+  --accent: #6f8cff;
+  --accent-2: #8fa5ff;
+  --accent-3: #b3c2ff;
+  --pink: #3a4468;
+  --pink-2: #7d8ecf;
+  --pink-3: #9fb0ec;
+  --mint: #4fd6a8;
+  --mint-2: #7ef0c4;
+  --error: #ff7a95;
+  --border: #4d5c8c;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --cream: #ffe9b8;
+  --sel: #6f8cff;
+  --sel-bg: rgba(111, 140, 255, 0.25);
+  --grid: rgba(255, 255, 255, 0.05);
+  --portrait-blue: #5f7dff;
+  --portrait-purple: #b28fff;
+  --portrait-dark: #05070d;
+  --portrait-light: #eef2ff;
+  --phone-filter: grayscale(1) sepia(1) hue-rotate(200deg) saturate(1.3) brightness(0.85)
+    contrast(1.05);
+}
+
+[data-theme="retro"] {
+  --wall-1: #d8cfae;
+  --wall-2: #c4b993;
+  --wall-3: #a99f7a;
+  --wall-4: #8d8462;
+  --panel: #e8e2c8;
+  --panel-2: #d8d0b0;
+  --panel-3: #c6bd99;
+  --white: #f3efdd;
+  --ink: #33301f;
+  --ink-soft: #5c5738;
+  --ink-dim: #5b563f;
+  --accent: #a3894f;
+  --accent-2: #7d6738;
+  --accent-3: #5c4b26;
+  --pink: #c9a86a;
+  --pink-2: #a3854a;
+  --pink-3: #765e32;
+  --mint: #8ba06a;
+  --mint-2: #4f6635;
+  --error: #a5442f;
+  --border: #5c4b26;
+  --shadow: rgba(60, 50, 20, 0.35);
+  --cream: #fff8dc;
+  --sel: #7d6738;
+  --sel-bg: rgba(163, 137, 79, 0.3);
+  --grid: rgba(255, 255, 255, 0.12);
+  --portrait-blue: #5c7a8f;
+  --portrait-purple: #8a5c7a;
+  --portrait-dark: #211d10;
+  --portrait-light: #f3efdd;
+  --phone-filter: grayscale(1) sepia(1) hue-rotate(8deg) saturate(1.15) brightness(0.95);
+}
+
+[data-theme="vaporwave"] {
+  --wall-1: #ffd9f2;
+  --wall-2: #d4b3ff;
+  --wall-3: #8fd8ff;
+  --wall-4: #5b6ee8;
+  --panel: #fff0fb;
+  --panel-2: #ffe0f6;
+  --panel-3: #e8d0ff;
+  --white: #fffafd;
+  --ink: #3d1a6b;
+  --ink-soft: #7b3fb8;
+  --ink-dim: #8c44c6;
+  --accent: #ff6ec7;
+  --accent-2: #c04ee0;
+  --accent-3: #7b2fd8;
+  --pink: #8ff0ff;
+  --pink-2: #48d8f0;
+  --pink-3: #007a8d;
+  --mint: #9dffdc;
+  --mint-2: #007f5f;
+  --error: #db005e;
+  --border: #7b2fd8;
+  --shadow: rgba(120, 40, 180, 0.35);
+  --cream: #fff5b8;
+  --sel: #ff6ec7;
+  --sel-bg: rgba(255, 110, 199, 0.25);
+  --grid: rgba(255, 255, 255, 0.22);
+  --portrait-blue: #3fb0e8;
+  --portrait-purple: #c04ee0;
+  --portrait-dark: #1a0a2e;
+  --portrait-light: #fff5fd;
+  --phone-filter: grayscale(1) sepia(1) hue-rotate(270deg) saturate(2.8) brightness(1.05)
+    contrast(1.05);
+}
+
+[data-theme="terminal"] {
+  --wall-1: #0d1a0d;
+  --wall-2: #081208;
+  --wall-3: #050c05;
+  --wall-4: #020602;
+  --panel: #0a140a;
+  --panel-2: #0d1c0d;
+  --panel-3: #102410;
+  --white: #081208;
+  --ink: #7dff7d;
+  --ink-soft: #4fd44f;
+  --ink-dim: #309730;
+  --accent: #2e8f2e;
+  --accent-2: #4fd44f;
+  --accent-3: #7dff7d;
+  --pink: #1a4d1a;
+  --pink-2: #39a839;
+  --pink-3: #5fe65f;
+  --mint: #7dff7d;
+  --mint-2: #4fd44f;
+  --error: #ff5f5f;
+  --border: #2e8f2e;
+  --shadow: rgba(0, 0, 0, 0.6);
+  --cream: #c8ffc8;
+  --sel: #2e8f2e;
+  --sel-bg: rgba(46, 143, 46, 0.3);
+  --grid: rgba(125, 255, 125, 0.07);
+  --portrait-blue: #2e8f2e;
+  --portrait-purple: #5fe65f;
+  --portrait-dark: #020602;
+  --portrait-light: #c8ffc8;
+  --phone-filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4) brightness(0.9);
+}

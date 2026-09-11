@@ -1,0 +1,450 @@
+.doc-body {
+  padding: 18px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+/* Floor big enough for the About tab's overlapping title/portrait (now a
+   310px portrait) plus the bio below it to never collapse — below this,
+   .win-body's existing overflow:auto takes over instead. Scoped to this
+   window specifically since other windows have different minimum needs. */
+.win[data-win="doc"] {
+  min-width: 560px;
+  min-height: 580px;
+}
+.doc-body h3 {
+  font-family: "Silkscreen", monospace;
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.doc-body h4 {
+  font-family: "Silkscreen", monospace;
+  font-size: 10px;
+  color: var(--pink-3);
+  margin: 16px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.doc-body p {
+  margin-bottom: 10px;
+}
+.doc-body ul {
+  margin: 0 0 12px 18px;
+}
+.doc-body li {
+  margin-bottom: 6px;
+}
+.doc-body a {
+  color: var(--accent-3);
+}
+/* About tab — the "whoami" title overlaps the portrait again (absolutely
+   positioned over it, "ami" landing on the face's dark interior), with the
+   bio as a separate block below rather than part of the overlap. */
+.about-hero-wrap {
+  padding: 16px 20px;
+}
+.about-hero {
+  position: relative;
+  min-height: 400px;
+}
+/* Real portrait — enlarged so its upper portion sits directly under "ami"
+   (the title overlaps its top, not its middle/bottom). object-fit:contain
+   so nothing is cropped, image-rendering:pixelated since this is pixel
+   art, not a photo. */
+.about-face {
+  position: absolute;
+  top: 48px;
+  right: 80px;
+  width: 350px;
+  height: 350px;
+  object-fit: contain;
+  image-rendering: pixelated;
+  z-index: 1;
+}
+.about-title-wrap {
+  position: absolute;
+  top: 36px;
+  left: 17%;
+  width: 68%;
+  z-index: 2;
+}
+.pixel-word {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Bio paragraph — positioned below the "whoami" title box. Plain text, no
+   card/box/background, per reference. VT323 (thin segmented/digital-
+   display pixel font) instead of Space Mono — Space Mono reads as an
+   ordinary typewriter face, not the thin pixel-display look wanted here. */
+.about-bio {
+  position: absolute;
+  top: 170px;
+  left: 8%;
+  width: 42%;
+  z-index: 2;
+  color: var(--portrait-purple);
+  text-transform: lowercase;
+  font-family: "VT323", "Space Mono", monospace;
+  font-size: 22px;
+  line-height: 1.35;
+  letter-spacing: 0.5px;
+}
+.about-bio p {
+  margin: 0 0 6px;
+}
+/* Callout — the "segmentation faults" phrase pulled out of the main bio
+   sentence into its own bigger, standalone box below it. */
+.about-callout {
+  position: absolute;
+  top: 280px;
+  left: 8%;
+  width: 46%;
+  z-index: 2;
+  color: var(--portrait-purple);
+  text-transform: lowercase;
+  font-family: "VT323", "Space Mono", monospace;
+  font-size: 30px;
+  line-height: 1.25;
+  letter-spacing: 0.5px;
+  font-style: italic;
+}
+.skillcat {
+  margin-bottom: 14px;
+}
+.tl {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px;
+  margin-bottom: 14px;
+}
+.tl .when {
+  font-size: 10.5px;
+  color: var(--pink-3);
+}
+.tl .what {
+  font-family: "Pixelify Sans", monospace;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+@media (max-width: 820px) {
+  /* Mobile's full-screen sheet is too narrow for the title/face overlap to
+     read cleanly — stack them instead: face centered, title below it,
+     bio below that. */
+  .about-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    min-height: 0;
+  }
+  .about-face {
+    position: static;
+  }
+  .about-title-wrap {
+    position: static;
+    width: 100%;
+  }
+  .about-bio {
+    position: static;
+    width: 100%;
+  }
+  .about-callout {
+    position: static;
+    width: 100%;
+  }
+  /* .win[data-win="doc"]'s 560px/580px min-size (above, needed for the
+     About tab's title/portrait overlap) is never relaxed by windows.css's
+     mobile full-screen rules — min-width always wins over a `width`
+     even with !important, so without this the window is forced wider
+     than the viewport. body has overflow-x:hidden (base.css), so that
+     doesn't scroll into view, it just silently clips — the phone widget
+     and links below become partly unreachable. */
+  .win[data-win="doc"] {
+    min-width: 0;
+    min-height: 0;
+  }
+}
+
+.contact-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  /* Same fix as .skills-wrap — fill exactly the available win-body space
+     instead of letting content stack taller than it and trip .win-body's
+     global overflow:auto into a visible scrollbar. */
+  height: 100%;
+  overflow: hidden;
+}
+h3.contact-title {
+  /* Fluid instead of a fixed 32px so it can't force horizontal overflow
+     on the narrowest phones (the window itself has no min-width there,
+     see the mobile override above). */
+  font-size: clamp(20px, 7vw, 32px);
+  margin-bottom: 4px;
+  text-align: center;
+  text-shadow:
+    2px 2px 0 var(--accent),
+    4px 4px 0 var(--shadow);
+}
+/* ===== CONTACT — rotary phone (PixelPhone.tsx) =====
+   Three hand-placed pixel art pieces, each rendered unmodified:
+   pixel-phone.svg is the fixed base (patched only at the cells the dial
+   sits on, so nothing "ghosts" behind it once it spins away),
+   pixel-dial.svg is placed on top at its native coordinates as
+   .pixel-phone-dial — the ONLY thing that ever rotates — and the three
+   button graphics sit fixed on top of everything, never rotating, only
+   pressing down. The dial's spin is a smooth transition rather than this
+   project's usual steps() easing (a dial pull reads wrong as blocky
+   motion) — an intentional, documented exception. The button press below
+   is NOT part of that exception — it stays on steps(), like everything
+   else. */
+.pixel-phone-wrap {
+  position: relative;
+  width: min(400px, 90vw);
+  aspect-ratio: 1 / 1;
+}
+.pixel-phone-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* The art's colours are hardcoded hex per pixel (hand-placed, not
+     CSS-variable-driven) — a per-theme CSS filter recolours the whole
+     phone at once instead of remapping every individual hex value. */
+  filter: var(--phone-filter, none);
+}
+.pixel-phone-btn-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.pixel-phone-dial {
+  transition: transform 0.9s cubic-bezier(0.33, 0.6, 0.4, 1);
+}
+.pixel-phone-btn-shadow {
+  transition: opacity 0.1s steps(1);
+}
+.pixel-phone-btn-face {
+  transition: transform 0.1s steps(2);
+}
+.pixel-phone-hitzones {
+  position: absolute;
+  inset: 0;
+}
+.pixel-phone-hit {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}
+.pixel-phone-hit:disabled {
+  cursor: default;
+}
+.pixel-phone-hit:focus-visible {
+  outline: 2px dotted var(--sel);
+  outline-offset: 2px;
+}
+/* Fast-access links — pixel-font buttons with a hard offset shadow (same
+   convention as .try-terminal-btn/.chip elsewhere), not a muted caption,
+   since these are the quick way in when someone doesn't want to dial. */
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Silkscreen", monospace;
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--panel-2);
+  border: 2px solid var(--border);
+  padding: 6px 12px;
+  box-shadow:
+    2px 2px 0 var(--accent),
+    4px 4px 0 var(--shadow);
+  cursor: pointer;
+  transition:
+    transform 0.08s steps(2),
+    box-shadow 0.08s steps(2);
+}
+.contact-link:hover {
+  color: #fff;
+  background: var(--accent-3);
+}
+.contact-link:active {
+  transform: translate(2px, 2px);
+  box-shadow:
+    0 0 0 var(--accent),
+    2px 2px 0 var(--shadow);
+}
+.contact-link:focus-visible {
+  outline: 2px dotted var(--sel);
+  outline-offset: 2px;
+}
+
+/* Skills tab — a single decorative SVG centered in the window, smaller
+   than the full body rather than stretched edge-to-edge. */
+.skills-wrap {
+  position: relative;
+  padding: 0;
+  display: block;
+  height: 100%;
+  overflow: hidden;
+}
+.skills-fill {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* The element's own box is sized to the SVG's real square footprint —
+     not stretched to 100%/100% of a non-square window — so there's no
+     leftover transparent margin inside the box for the window's own
+     background to show through as a mismatched border when theming.
+     width/height:auto + aspect-ratio let the box shrink to whichever
+     axis is tighter; max-width/max-height cap it there. */
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  /* Same per-theme recolor mechanism as the phone (themes.css) — this
+     art's colours are baked into the source SVG too, not CSS-variable-
+     driven, so a filter is what makes its yellow screen track the
+     active theme instead of staying fixed. */
+  filter: var(--phone-filter, none);
+}
+/* The "blue screen" — a constrained box over the SVG's blue-toned region
+   (estimated from that artwork's own translate coordinates; nudge these
+   percentages if it doesn't land on the actual blue field). Everything
+   skill-related is boxed inside here per instruction: the arch title stays
+   fixed at the top the whole time, and exactly one skill at a time slides
+   through beneath it. */
+.skills-blue-screen {
+  position: absolute;
+  left: 24%;
+  top: 24%;
+  width: 39%;
+  height: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+.skills-arch {
+  flex: 0 0 auto;
+  width: 82%;
+  height: auto;
+  margin-top: 4%;
+  overflow: visible;
+}
+.skills-arch-text {
+  /* Silkscreen's lowercase glyphs sit at near cap-height (fixed pixel
+     grid), so "areej knows" reads as caps regardless of the source text's
+     actual case — Pixelify Sans has a real lowercase x-height. */
+  font-family: "Pixelify Sans", monospace;
+  font-weight: 700;
+  /* clamp, not a flat px — same fix as h3.contact-title below: the doc
+     window goes full-width on mobile (windows.css), and a fixed size
+     here would overflow the much narrower .skills-blue-screen lane. */
+  font-size: clamp(14px, 5vw, 28px);
+  letter-spacing: 2px;
+  fill: var(--ink);
+  filter:
+    drop-shadow(2px 2px 0 #fff)
+    drop-shadow(4px 4px 0 #fff);
+}
+/* Default theme's panel is pale, so the plain white offset shadows above
+   read as nearly invisible there — this soft, blurred dark shadow adds
+   just enough depth to keep the title readable without theme-specific
+   duplication of the whole rule. */
+:root:not([data-theme]) .skills-arch-text,
+[data-theme="default"] .skills-arch-text {
+  filter:
+    drop-shadow(2px 2px 0 #fff)
+    drop-shadow(4px 4px 0 #fff)
+    drop-shadow(0 3px 4px rgba(80, 50, 120, 0.35));
+}
+/* Marquee track — masked at both edges so a skill visually dissolves as it
+   reaches the box's border, rather than being hard-clipped. */
+.skills-marquee {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 14%,
+    black 86%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 14%,
+    black 86%,
+    transparent 100%
+  );
+}
+/* steps() keeps the slide pixel-chunky rather than smooth, matching this
+   project's motion convention. onAnimationEnd (DocWindow.tsx) advances to
+   the next skill exactly when this one finishes crossing the box, so only
+   one is ever on screen. Animating `left` (not `transform`) so the travel
+   distance is relative to the *box's* width, not the skill word's own
+   width — a short word like "OOP" needs the same 0%→100% journey across
+   the box as a long one, and only `left` percentages resolve against the
+   container. */
+@keyframes skillsSlideAcross {
+  0% {
+    left: 115%;
+  }
+  100% {
+    left: -115%;
+  }
+}
+.skills-slide {
+  position: absolute;
+  top: 50%;
+  white-space: nowrap;
+  font-family: "Silkscreen", monospace;
+  /* clamp for the same reason as .skills-arch-text above — this is
+     double the title's size per earlier instruction, so its clamp
+     range is exactly double that one's at each end. */
+  font-size: clamp(28px, 10vw, 56px);
+  color: var(--ink);
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 #fff;
+  transform: translateY(-50%);
+  left: 115%;
+  animation: skillsSlideAcross 2.2s steps(30) forwards;
+}
+/* Default theme's panel is pale, so the plain white offset shadows above
+   read as nearly invisible there — this soft, blurred dark shadow adds
+   just enough depth to keep the sliding skill readable. */
+:root:not([data-theme]) .skills-slide,
+[data-theme="default"] .skills-slide {
+  text-shadow:
+    2px 2px 0 #fff,
+    4px 4px 0 #fff,
+    0 3px 4px rgba(80, 50, 120, 0.35);
+}

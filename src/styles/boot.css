@@ -1,0 +1,388 @@
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  /* Hard color-stop pairs instead of smooth blends throughout — reads as
+     banded/pixelated rings, same technique as the desktop wallpaper. */
+  background:
+    radial-gradient(
+      480px circle at var(--mx, 50%) var(--my, 45%),
+      color-mix(in srgb, var(--accent) 14%, transparent) 0%,
+      color-mix(in srgb, var(--accent) 14%, transparent) 35%,
+      color-mix(in srgb, var(--accent) 7%, transparent) 35%,
+      color-mix(in srgb, var(--accent) 7%, transparent) 60%,
+      transparent 60%,
+      transparent 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      color-mix(in srgb, var(--grid) 55%, transparent) 0 1px,
+      transparent 1px 44px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--grid) 55%, transparent) 0 1px,
+      transparent 1px 44px
+    ),
+    radial-gradient(
+      ellipse at 50% 45%,
+      var(--wall-2) 0%,
+      var(--wall-2) 35%,
+      var(--wall-3) 35%,
+      var(--wall-3) 65%,
+      var(--wall-4) 65%,
+      var(--wall-4) 100%
+    );
+}
+
+/* Dims the looping background video toward the theme's wall color, same
+   technique as the desktop's .wallpaper-scrim — keeps the boot text/box
+   readable regardless of what's happening in the video frame. */
+.gate-video-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--wall-4);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ---- top bar ---- */
+.gate-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 26px;
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  color: var(--cream);
+  letter-spacing: 0.5px;
+}
+.gate-welcome {
+  color: var(--cream);
+  opacity: 0.85;
+}
+.gate-clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---- ambient drifting particles, deliberately faint ---- */
+.gate-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--cream);
+  opacity: 0;
+  pointer-events: none;
+  animation: driftFade ease-in-out infinite;
+}
+@keyframes driftFade {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  15% {
+    opacity: 0.35;
+  }
+  85% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px);
+  }
+}
+
+/* ---- centre column ---- */
+.gate-box {
+  text-align: center;
+  position: relative;
+}
+.gate-glow {
+  position: absolute;
+  left: 50%;
+  top: 8%;
+  width: 420px;
+  height: 260px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse,
+    color-mix(in srgb, var(--pink-2) 30%, transparent) 0%,
+    color-mix(in srgb, var(--pink-2) 30%, transparent) 40%,
+    color-mix(in srgb, var(--pink-2) 15%, transparent) 40%,
+    color-mix(in srgb, var(--pink-2) 15%, transparent) 65%,
+    transparent 65%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+.gate-hero-wrap {
+  position: relative;
+  display: inline-block;
+}
+.gate h2 {
+  font-family: "Silkscreen", monospace;
+  font-size: clamp(32px, 6vw, 64px);
+  color: var(--cream);
+  text-shadow:
+    3px 3px 0 var(--accent-3),
+    6px 6px 0 var(--pink-2);
+  margin-bottom: 2px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+.gate-who {
+  font-family: "Pixelify Sans", monospace;
+  font-size: 16px;
+  /* Literal cream, not var(--ink) — --ink is the theme's dark text tone,
+     which read poorly once this sat over the transition-video background;
+     --cream stays light and readable in every theme, matching the topbar
+     text right above it. */
+  color: var(--cream);
+  text-align: center;
+  max-width: 34ch;
+  margin: 18px auto 24px;
+  min-height: 1.6em;
+}
+.gate-cur {
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  background: var(--pink-3);
+  opacity: 0.6;
+  vertical-align: -3px;
+  margin-left: 2px;
+  animation: cursorBlink 1s step-end infinite;
+}
+.gate button {
+  font-family: "Silkscreen", monospace;
+  font-size: 13px;
+  color: #fff;
+  background: var(--accent);
+  border: 3px solid var(--border);
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--accent) 45%, transparent);
+  padding: 15px 30px;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.gate button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px color-mix(in srgb, var(--accent) 65%, transparent);
+}
+.gate button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 12px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.gate-hint {
+  margin-top: 16px;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.gate-hint kbd {
+  font-family: "Silkscreen", monospace;
+  font-size: 9px;
+  color: var(--ink);
+  background: var(--pink);
+  border: 2px solid var(--border);
+  padding: 3px 7px;
+}
+
+.gate-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 22px;
+}
+.gate-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--ink-soft);
+  opacity: 0.6;
+}
+.gate-dots span.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  opacity: 1;
+  animation: pulseDot 1.6s ease-in-out infinite;
+}
+@keyframes pulseDot {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+/* ---- boot-sequence card, bottom-left ---- */
+.gate-syslog {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  width: 250px;
+  background: rgba(0, 0, 0, 0.18);
+  border: 2px solid var(--cream);
+  border-color: color-mix(in srgb, var(--cream) 35%, transparent);
+  padding: 12px 14px;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  color: var(--cream);
+}
+.gate-syslog .head {
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+.gate-syslog .label {
+  opacity: 0.65;
+  margin-bottom: 6px;
+}
+.gate-syslog .row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 0.2s steps(2) forwards;
+  margin-bottom: 3px;
+}
+.gate-syslog .row .ok {
+  color: var(--pink-2);
+}
+.gate-syslog .done {
+  margin-top: 6px;
+  color: var(--pink-2);
+  opacity: 0;
+  animation: fadeIn 0.2s steps(2) forwards;
+}
+
+/* ---- credits, bottom-right ---- */
+.gate-credits {
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+  display: flex;
+  gap: 22px;
+  font-family: "Space Mono", monospace;
+  font-size: 11px;
+  color: var(--cream);
+  opacity: 0.75;
+}
+
+@media (max-width: 820px) {
+  .gate-topbar {
+    font-size: 10px;
+    padding: 14px 16px;
+  }
+  .gate-syslog {
+    display: none;
+  }
+  .gate-credits {
+    left: 16px;
+    right: 16px;
+    justify-content: space-between;
+  }
+}
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: var(--wall-4);
+}
+/* Shared by Splash's looping background video and the intro's one-shot
+   transition clip — both use transition.mp4, just different segments. */
+.transition-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero {
+  position: fixed;
+  inset: 0;
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8vw;
+  pointer-events: none;
+  opacity: 0;
+}
+.hero.show {
+  animation: fadeIn 0.25s steps(3) forwards;
+}
+.hero h1 {
+  font-family: "Silkscreen", monospace;
+  font-size: clamp(32px, 6vw, 68px);
+  line-height: 1.3;
+  color: var(--cream);
+  text-shadow:
+    3px 3px 0 var(--accent-3),
+    6px 6px 0 var(--pink-2);
+  letter-spacing: 1px;
+}
+.hero-sub {
+  font-family: "Pixelify Sans", monospace;
+  font-weight: 500;
+  font-size: clamp(15px, 1.7vw, 21px);
+  line-height: 1.75;
+  /* Literal cream, not var(--ink) — same readability fix as .gate-who: this
+     text sits over the looping wallpaper video, and --ink is too dark/low-
+     contrast there in several themes. */
+  color: var(--cream);
+  margin-top: 20px;
+  max-width: 30ch;
+  min-height: 2.4em;
+}
+.hero-sub .cur {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  background: var(--pink-3);
+  opacity: 0.55;
+  vertical-align: -2px;
+  margin-left: 3px;
+  animation: cursorBlink 1s step-end infinite;
+}
+@keyframes cursorBlink {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+@media (max-width: 820px) {
+  .hero h1 {
+    font-size: clamp(28px, 9vw, 44px);
+  }
+  .hero-sub {
+    font-size: 15px;
+    max-width: none;
+  }
+}

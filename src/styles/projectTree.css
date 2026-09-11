@@ -1,0 +1,96 @@
+/* Fills the window body — a plain real box (not display:contents) so
+   Window.tsx's autoFit can measure it via scrollWidth/scrollHeight. */
+.projects-win {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== PROJECT TREE — vertical dependency-graph listing (├── / └── / │),
+   built fresh from CONTENT.projects. Prefix strings are computed in JS
+   (ProjectTree.tsx) and rendered with white-space:pre so the connector
+   spacing is never collapsed — no border pseudo-elements, no CSS grid. ===== */
+.dep-tree {
+  flex: 1;
+  overflow: auto;
+  padding: 22px 18px;
+  font-family: "Space Mono", monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.dep-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin: 2px 0;
+}
+.dep-prefix {
+  white-space: pre;
+  color: var(--border);
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+.dep-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+.dep-cat-label {
+  font-family: "Silkscreen", monospace;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.5px;
+  text-shadow:
+    2px 2px 0 var(--accent-3),
+    4px 4px 0 var(--pink-2);
+}
+
+/* A pixel button per project — sharp square corners (matches this OS's
+   usual flat chrome), layered stepped offset shadow for a pixelated look,
+   brightens on hover/focus. */
+.dep-btn {
+  font-family: "Silkscreen", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--panel-2);
+  border: 2px solid var(--border);
+  border-radius: 0;
+  padding: 5px 10px;
+  margin: 1px 0;
+  cursor: pointer;
+  text-align: left;
+  box-shadow:
+    2px 2px 0 var(--border),
+    4px 4px 0 var(--shadow);
+  transition:
+    transform 0.08s steps(2),
+    box-shadow 0.08s steps(2);
+}
+.dep-btn:hover,
+.dep-btn:focus-visible {
+  background: var(--accent);
+  color: #fff;
+}
+.dep-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow);
+}
+.dep-spacer {
+  height: 18px;
+}
+
+.dep-caption {
+  margin-top: 22px;
+  font-style: italic;
+  color: var(--ink-dim);
+}
+
+@media (max-width: 820px) {
+  .dep-tree {
+    padding: 16px;
+    font-size: 10.5px;
+  }
+}
