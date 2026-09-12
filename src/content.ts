@@ -13,7 +13,7 @@ export const CONTENT: Content = {
 
   links: {
     github: "https://github.com/areejBug",
-    linkedin: "https://linkedin.com/in/", // [EDIT]
+    linkedin: "https://www.linkedin.com/in/areej-nawaz-6407a034a/",
     email: "areejn.2006@gmail.com",
   },
 
