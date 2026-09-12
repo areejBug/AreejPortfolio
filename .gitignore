@@ -23,5 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 deploy/
-public/videos/*.mp4
 node_modules/
